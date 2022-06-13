@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 
 public delegate void MovementDelegate(float xInput, float yInput, bool isWalking, bool isRunning, bool isIdle, bool isCarrying,
     ToolEffect toolEffect,
@@ -9,12 +12,19 @@ public delegate void MovementDelegate(float xInput, float yInput, bool isWalking
 
 public static class EventHandler
 {
-    // Movement Event
 
+    // Inventory Updated Event
+    public static event Action<InventoryLocation, List<InventoryItem>> InventoryUpdatedEvent;
+
+    public static void CallInventoryUpdatedEvent(InventoryLocation location, List<InventoryItem> inventoryItems)
+    {
+        InventoryUpdatedEvent?.Invoke(location, inventoryItems);
+    }
+
+    // Movement Event
     public static event MovementDelegate MovementEvent;
 
     // Movement Event Call For Publishers
-
     public static void CallMovementEvent(float xInput, float yInput, bool isWalking, bool isRunning, bool isIdle, bool isCarrying,
     ToolEffect toolEffect,
     bool isUsingToolRight, bool isUsingToolLeft, bool isUsingToolUp, bool isUsingToolDown,

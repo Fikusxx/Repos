@@ -5,8 +5,6 @@ public class ItemPickUp : MonoBehaviour // sits on the player
 {
 
 
-
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
@@ -18,9 +16,12 @@ public class ItemPickUp : MonoBehaviour // sits on the player
             // Get specific itemDetails object using itemCode from Item.
             ItemDetails itemDetails = InventoryManager.Instance.GetItemDetails(item.ItemCode);
 
-
-            // Debug it's name for now
-            Debug.Log(itemDetails.itemDescription);
+            // if an item can be picked up
+            if (itemDetails.canBePickedUp == true)
+            {
+                // Add an item to the inventory
+                InventoryManager.Instance.AddItem(InventoryLocation.player, item, collision.gameObject); // location player because this script is attached to the player
+            }
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable] // makes it visible on the Inspector as a whole
-public class ItemDetails
+public class ItemDetails // contains all properties for an item. I think there cna be many classes like this, all with its own properties
 {
 
     // Core Data

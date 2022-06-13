@@ -3,7 +3,6 @@ using UnityEngine;
 public static class Settings
 {
 
-
     // Obscure Fading Parameters
 
     public const float fadeInSeconds = 0.3f;
@@ -15,6 +14,12 @@ public static class Settings
 
     public const float runningSpeed = 6f;
     public const float walkingSpeed = 3f;
+
+
+    // Inventory
+
+    public static int playerInitialInventoryCapacity = 24;
+    public static int playerMaximumInventoryCapacity = 48;
 
 
     // Player Animation Parameters

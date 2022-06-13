@@ -41,6 +41,7 @@ public class Player : SingletonMonobehaviour<Player>
     // References
     public bool playerInputDisabled { get; set; } // why public?
     private Rigidbody2D rb;
+    private Camera mainCamera;
     private Direction playerDirection;
     private float movementSpeed;
 
@@ -49,23 +50,28 @@ public class Player : SingletonMonobehaviour<Player>
     {
         base.Awake();
         rb = GetComponent<Rigidbody2D>();
+        mainCamera = Camera.main;
     }
 
     private void Update()
     {
         #region PlayerInput
 
-        ResetAnimationTriggers();
-        PlayerMovementInput();
-        PlayerWalkInput();
+        if (!playerInputDisabled)
+        {
+            ResetAnimationTriggers();
+            PlayerMovementInput();
+            PlayerWalkInput();
 
-        // Send event to any listeners for player movement input
-        EventHandler.CallMovementEvent(xInput, yInput, isWalking, isRunning, isIdle, isCarrying, toolEffect,
-                isUsingToolRight, isUsingToolLeft, isUsingToolUp, isUsingToolDown,
-                isLiftingToolRight, isLiftingToolLeft, isLiftingToolUp, isLiftingToolDown,
-                isPickingRight, isPickingLeft, isPickingUp, isPickingDown,
-                isSwingingToolRight, isSwingingToolLeft, isSwingingToolUp, isSwingingToolDown,
-                false, false, false, false);
+            // Send event to any listeners for player movement input
+            EventHandler.CallMovementEvent(xInput, yInput, isWalking, isRunning, isIdle, isCarrying, toolEffect,
+                    isUsingToolRight, isUsingToolLeft, isUsingToolUp, isUsingToolDown,
+                    isLiftingToolRight, isLiftingToolLeft, isLiftingToolUp, isLiftingToolDown,
+                    isPickingRight, isPickingLeft, isPickingUp, isPickingDown,
+                    isSwingingToolRight, isSwingingToolLeft, isSwingingToolUp, isSwingingToolDown,
+                    false, false, false, false);
+        }
+
 
         #endregion
     }
@@ -167,5 +173,39 @@ public class Player : SingletonMonobehaviour<Player>
         //    isIdle = false;
         //    movementSpeed = Settings.runningSpeed;
         //}
+    }
+
+    public void DisablePlayerInputAndResetMovement()
+    {
+        DisablePlayerInput();
+        ResetMovement();
+
+        // Send event to any listeners for player movement input
+        EventHandler.CallMovementEvent(xInput, yInput, isWalking, isRunning, isIdle, isCarrying, toolEffect,
+                isUsingToolRight, isUsingToolLeft, isUsingToolUp, isUsingToolDown,
+                isLiftingToolRight, isLiftingToolLeft, isLiftingToolUp, isLiftingToolDown,
+                isPickingRight, isPickingLeft, isPickingUp, isPickingDown,
+                isSwingingToolRight, isSwingingToolLeft, isSwingingToolUp, isSwingingToolDown,
+                false, false, false, false);
+    }
+
+    private void ResetMovement()
+    {
+        // Reset movement
+        xInput = 0f;
+        yInput = 0f;
+        isRunning = false;
+        isWalking = false;
+        isIdle = true;
+    }
+
+    public void EnablePlayerInput() => playerInputDisabled = false;
+
+    public void DisablePlayerInput() => playerInputDisabled = true;
+
+    public Vector3 GetPlayerViewportPosition()
+    {
+        // Vector3 viewport pos for player ((0,0) viewport bottom left, (1,1) viewport top right
+        return mainCamera.WorldToViewportPoint(transform.position);
     }
 }
