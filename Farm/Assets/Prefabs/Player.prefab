@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 925890460013687209}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -244,6 +244,7 @@ Transform:
   - {fileID: 5804622866247533296}
   - {fileID: 6513534821526481377}
   - {fileID: 2721619328537338862}
+  - {fileID: 7873459678059793998}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -356,6 +357,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1448bee34351cd943802fde67362e7cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  equippedItemSpriteRenderer: {fileID: 6536464592715844012}
 --- !u!114 &1665592532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -970,3 +972,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae2f1523cc2f93b4d9ffb363a77073de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8986077835893581371
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7873459678059793998}
+  - component: {fileID: 8881971361893923784}
+  m_Layer: 0
+  m_Name: CharacterCustomiser
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7873459678059793998
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8986077835893581371}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4974305114761525940}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8881971361893923784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8986077835893581371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6405ca1c90e51c4bb3df03a1c4bab71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 4974305114761525937}
+  soAnimationTypeArray:
+  - {fileID: 11400000, guid: 08047c7bee38f2c4698edf11e0b8f84d, type: 2}
+  - {fileID: 11400000, guid: a636a37570254d14cb2bf5cfb6eb6a9b, type: 2}
+  - {fileID: 11400000, guid: 4a892f9be507a844ca1061481fe08d42, type: 2}
+  - {fileID: 11400000, guid: deb6d937e90b82b4b87cbba7f98b322d, type: 2}
+  - {fileID: 11400000, guid: 4f4cdf1bad21d05458720e168667e171, type: 2}
+  - {fileID: 11400000, guid: 575033888a42fa14b81134f1b05e7296, type: 2}
+  - {fileID: 11400000, guid: 2494fdc8fd0e33b408749a5ecfa801aa, type: 2}
+  - {fileID: 11400000, guid: 5253bd279956e2348a8cee9019c51166, type: 2}
+  - {fileID: 11400000, guid: f59ab1f90d286324db608ee59e0b104f, type: 2}
+  - {fileID: 11400000, guid: c1d0ae3fa99d2344ba1651ec2192b97c, type: 2}
+  - {fileID: 11400000, guid: 00ee5fb6200c6f2478161afec55f3264, type: 2}
+  - {fileID: 11400000, guid: 86ecfc3d0b5cedd4b83b8dd74b0e26cd, type: 2}
+  - {fileID: 11400000, guid: 167ceb7ca77da1945937c8df2855e37b, type: 2}
+  - {fileID: 11400000, guid: 18410ee84f3540a42a6f5cb05828d440, type: 2}
+  - {fileID: 11400000, guid: 9bc19f0b906a3264c870c63efff8aae1, type: 2}
+  - {fileID: 11400000, guid: e089e9a497cc04d439126fc9b1d8c33c, type: 2}
+  - {fileID: 11400000, guid: f741a859271a21645b972b93906cf67e, type: 2}
+  - {fileID: 11400000, guid: 069c097f234075547b02bb20768b2db3, type: 2}
+  - {fileID: 11400000, guid: e33da74a93a529445b1b63f4c790d565, type: 2}
+  - {fileID: 11400000, guid: eada3233360114c47a49555465d3f4de, type: 2}
+  - {fileID: 11400000, guid: b8c091e43cac45b48ab04f43c6ea1f3c, type: 2}
+  - {fileID: 11400000, guid: 412b57a4226bb1c48918c03d7494b27a, type: 2}
+  - {fileID: 11400000, guid: ded1215ef164e9d44844596b0e7fd75c, type: 2}
+  - {fileID: 11400000, guid: 3292b8849591b4042b4883c78e832974, type: 2}

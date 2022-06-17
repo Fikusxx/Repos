@@ -10,6 +10,7 @@ public class InventoryBar : MonoBehaviour
     [SerializeField] private Sprite blankSprite;
     [SerializeField] private InventorySlot[] inventoryBarSlots;
     public GameObject draggedItem;
+    [HideInInspector] public GameObject inventoryTextBoxGameobject;
 
     // Data
     private bool isBarPositionBottom = true;
@@ -77,6 +78,51 @@ public class InventoryBar : MonoBehaviour
                 inventoryBarSlots[i].textTMP.text = "";
                 inventoryBarSlots[i].itemDetails = null;
                 inventoryBarSlots[i].itemQuantity = 0;
+                SetHightlightedInventorySlots(i);
+            }
+        }
+    }
+
+
+    public void ClearHightlightOnInventorySlots()
+    {
+        if (inventoryBarSlots.Length > 0)
+        {
+            for (int i = 0; i < inventoryBarSlots.Length; i++)
+            {
+                if (inventoryBarSlots[i].isSelected)
+                {
+                    inventoryBarSlots[i].isSelected = false;
+                    inventoryBarSlots[i].invetorySlotHightlight.color = new Color(0, 0, 0, 0);
+
+                    // Update inventory to show items are not selected
+                    InventoryManager.Instance.ClearSelectedInventoryItem(InventoryLocation.player);
+                }
+            }
+        }
+    }
+
+    public void SetHightlightedInventorySlots()
+    {
+        if (inventoryBarSlots.Length > 0)
+        {
+            for (int i = 0; i < inventoryBarSlots.Length; i++)
+            {
+                SetHightlightedInventorySlots(i);
+            }
+        }
+    }
+
+    private void SetHightlightedInventorySlots(int itemIndex)
+    {
+        if (inventoryBarSlots.Length > 0 && inventoryBarSlots[itemIndex].itemDetails != null)
+        {
+            if (inventoryBarSlots[itemIndex].isSelected)
+            {
+                inventoryBarSlots[itemIndex].invetorySlotHightlight.color = new Color(1, 1, 1, 1);
+
+                // Update inventory to show items are not selected
+                InventoryManager.Instance.SetSelectedInventoryItem(InventoryLocation.player, inventoryBarSlots[itemIndex].itemDetails.itemCode);
             }
         }
     }
@@ -106,6 +152,7 @@ public class InventoryBar : MonoBehaviour
                             inventoryBarSlots[i].textTMP.text = inventoryItems[i].itemQuantity.ToString();
                             inventoryBarSlots[i].itemDetails = itemDetails;
                             inventoryBarSlots[i].itemQuantity = inventoryItems[i].itemQuantity;
+                            SetHightlightedInventorySlots(i);
                         }
                         else
                         {

@@ -1,13 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
 public class SwitchBoundsConfiner : MonoBehaviour
 {
-    private void Start()
+
+    private void OnEnable()
     {
-        SwitchBoundsShape();
+        EventHandler.AfterSceneLoadedEvent += SwitchBoundsShape;
+    }
+
+    private void OnDisable()
+    {
+        EventHandler.AfterSceneLoadedEvent -= SwitchBoundsShape;
     }
 
     /// <summary>

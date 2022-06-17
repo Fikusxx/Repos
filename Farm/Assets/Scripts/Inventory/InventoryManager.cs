@@ -7,6 +7,7 @@ public class InventoryManager : SingletonMonobehaviour<InventoryManager>
 
     [SerializeField] private SO_ItemList itemList = null;
     private Dictionary<int, ItemDetails> itemDetailsDictionary;
+    private int[] selectedInventoryItems;
 
     public List<InventoryItem>[] inventoryLists; // inventory lists for different locations, like Player and Chest
     [HideInInspector] public int[] invetoryListCapacityInArray; // defines capacity of a specific inventoryList above
@@ -21,6 +22,14 @@ public class InventoryManager : SingletonMonobehaviour<InventoryManager>
 
         // Create AND fill item details dictionary
         CreateItemDetailsDictionary();
+
+        // Initialise selected inventory item array
+        selectedInventoryItems = new int[(int)InventoryLocation.count];
+
+        for (int i = 0; i < selectedInventoryItems.Length; i++)
+        {
+            selectedInventoryItems[i] = -1;
+        }
     }
 
     private void CreateInventoryLists()
@@ -92,14 +101,32 @@ public class InventoryManager : SingletonMonobehaviour<InventoryManager>
         EventHandler.CallInventoryUpdatedEvent(location, inventoryLists[(int)location]);
     }
 
-    
+
+    /// <summary>
+    /// Swap item at fromItem index with item at toItem index in inventoryLocation inventory list
+    /// </summary>
+    public void SwapInventoryItems(InventoryLocation location, int fromItem, int toItem)
+    {
+        // if fromItem index and toItem index are within the bounds of the list, not the same, and greater or equal to zero
+        if (fromItem < inventoryLists[(int)location].Count && toItem < inventoryLists[(int)location].Count && fromItem != toItem && fromItem >= 0 && toItem >= 0)
+        {
+            InventoryItem fromInventoryItem = inventoryLists[(int)location][fromItem];
+            InventoryItem toInventoryItem = inventoryLists[(int)location][toItem];
+
+            inventoryLists[(int)location][toItem] = fromInventoryItem;
+            inventoryLists[(int)location][fromItem] = toInventoryItem;
+
+            // Send event that inventory has been updated
+            EventHandler.CallInventoryUpdatedEvent(location, inventoryLists[(int)location]);
+        }
+    }
 
 
     /// <summary>
     /// Find if itemCode is already in the inventory. Returns the item position
     /// in the inventory, or -1 if the item isnt there
     /// </summary>
-    private int FindItemInInventory(InventoryLocation location, int itemCode)
+    public int FindItemInInventory(InventoryLocation location, int itemCode)
     {
         int itemIndex = inventoryLists[(int)location].FindIndex(x => x.itemCode == itemCode);
         return itemIndex;
@@ -116,9 +143,7 @@ public class InventoryManager : SingletonMonobehaviour<InventoryManager>
         var inventoryItem = new InventoryItem(itemCode, quantity);
 
         inventoryItems[itemPosition] = inventoryItem;
-        //DebugPrintInventoryList(inventoryItems);
     }
-
 
 
     /// <summary>
@@ -128,17 +153,7 @@ public class InventoryManager : SingletonMonobehaviour<InventoryManager>
     {
         var inventoryItem = new InventoryItem(itemCode, 1);
         inventoryItems.Add(inventoryItem);
-        //DebugPrintInventoryList(inventoryItems);
     }
-
-    //private void DebugPrintInventoryList(List<InventoryItem> inventoryItems)
-    //{
-    //    foreach (var item in inventoryItems)
-    //    {
-    //        Debug.Log($"Description: {GetItemDetails(item.itemCode).itemDescription} ||  Item Quantity: {item.itemQuantity}");
-    //    }
-    //}
-
 
 
     /// <summary>
@@ -156,6 +171,24 @@ public class InventoryManager : SingletonMonobehaviour<InventoryManager>
         {
             return null;
         }
+    }
+
+
+    /// <summary>
+    /// Get the item type description for an item type - returns the item type desc as a string for a given itemType
+    /// </summary>
+    public string GetItemTypeDescription(ItemType type)
+    {
+        return type switch
+        {
+            ItemType.Breaking_tool => Settings.BreakingTool,
+            ItemType.Chopping_tool => Settings.ChoppingTool,
+            ItemType.Hoeing_tool => Settings.HoeingTool,
+            ItemType.Reaping_tool => Settings.ReapingTool,
+            ItemType.Watering_tool => Settings.WateringTool,
+            ItemType.Collecting_tool => Settings.CollectingTool,
+            _ => type.ToString()
+        };
     }
 
 
@@ -193,5 +226,22 @@ public class InventoryManager : SingletonMonobehaviour<InventoryManager>
         {
             inventoryItems.RemoveAt(itemPosition);
         }
+    }
+
+
+    /// <summary>
+    /// Set the selected inventory item for inventoryLocation to itemCode
+    /// </summary>
+    public void SetSelectedInventoryItem(InventoryLocation location, int itemCode)
+    {
+        selectedInventoryItems[(int)location] = itemCode;
+    }
+
+    /// <summary>
+    /// Clear the selected inv item for inventoryLocation
+    /// </summary>
+    public void ClearSelectedInventoryItem(InventoryLocation location)
+    {
+        selectedInventoryItems[(int)location] = -1;
     }
 }

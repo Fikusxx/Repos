@@ -45,4 +45,81 @@ public static class EventHandler
                 idleUp, idleDown, idleLeft, idleRight);
         }
     }
+
+    // Time System events
+
+    // Advance game minute
+    public static event Action<int, Season, int, string, int, int, int> AdvanceGameMinuteEvent;
+
+    public static void CallAdvancedGameMinuteEvent(int gameYear, Season gameSeason, int gameDay, string gameDayOfWeek, int gameHour, int gameMinute, int gameSecond)
+    {
+        AdvanceGameMinuteEvent?.Invoke(gameYear, gameSeason, gameDay, gameDayOfWeek, gameHour, gameMinute, gameSecond);
+    }
+
+    // Advance game hour
+    public static event Action<int, Season, int, string, int, int, int> AdvanceGameHourEvent;
+
+    public static void CallAdvancedGameHourEvent(int gameYear, Season gameSeason, int gameDay, string gameDayOfWeek, int gameHour, int gameMinute, int gameSecond)
+    {
+        AdvanceGameHourEvent?.Invoke(gameYear, gameSeason, gameDay, gameDayOfWeek, gameHour, gameMinute, gameSecond);
+    }
+
+    // Advance game day
+    public static event Action<int, Season, int, string, int, int, int> AdvanceGameDayEvent;
+
+    public static void CallAdvancedGameDayEvent(int gameYear, Season gameSeason, int gameDay, string gameDayOfWeek, int gameHour, int gameMinute, int gameSecond)
+    {
+        AdvanceGameDayEvent?.Invoke(gameYear, gameSeason, gameDay, gameDayOfWeek, gameHour, gameMinute, gameSecond);
+    }
+
+    // Advance game season
+    public static event Action<int, Season, int, string, int, int, int> AdvanceGameSeasonEvent;
+
+    public static void CallAdvancedGameSeasonEvent(int gameYear, Season gameSeason, int gameDay, string gameDayOfWeek, int gameHour, int gameMinute, int gameSecond)
+    {
+        AdvanceGameSeasonEvent?.Invoke(gameYear, gameSeason, gameDay, gameDayOfWeek, gameHour, gameMinute, gameSecond);
+    }
+
+    // Advance game year
+    public static event Action<int, Season, int, string, int, int, int> AdvanceGameYearEvent;
+
+    public static void CallAdvancedGameYearEvent(int gameYear, Season gameSeason, int gameDay, string gameDayOfWeek, int gameHour, int gameMinute, int gameSecond)
+    {
+        AdvanceGameYearEvent?.Invoke(gameYear, gameSeason, gameDay, gameDayOfWeek, gameHour, gameMinute, gameSecond);
+    }
+
+
+    // Scene Load Events - in the order they happen
+
+    // Before Scene Unload. Fade Out event
+    public static event Action BeforeSceneUnloadFadeOutEvent;
+
+    public static void CallBeforeSceneUnloadFadeOutEvent()
+    {
+        BeforeSceneUnloadFadeOutEvent?.Invoke();
+    }
+
+    // Before Scene Unload. After Fade Out event
+    public static event Action BeforeSceneUnloadEvent;
+
+    public static void CallBeforeSceneUnloadEvent()
+    {
+        BeforeSceneUnloadEvent?.Invoke();
+    }
+
+    // After Scene Loaded. When next scene is loaded
+    public static event Action AfterSceneLoadedEvent;
+
+    public static void CallAfterSceneLoadedEvent()
+    {
+        AfterSceneLoadedEvent?.Invoke();
+    }
+
+    // After Scene Loaded Fade In Event. Fading back in after scene is loaded
+    public static event Action AfterSceneLoadedFadeInEvent;
+
+    public static void CallAfterSceneLoadedFadeInEvent()
+    {
+        AfterSceneLoadedFadeInEvent?.Invoke();
+    }
 }

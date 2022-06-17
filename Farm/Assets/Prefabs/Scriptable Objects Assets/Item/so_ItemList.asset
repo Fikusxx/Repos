@@ -259,7 +259,7 @@ MonoBehaviour:
     itemUseRadius: 0
     itemUseGridRadius: 0
     itemSprite: {fileID: 21300000, guid: e452dd2aa629f624390a9ba516a7c47e, type: 3}
-  - itemCode: 20020
+  - itemCode: 10020
     itemType: 1
     isStartingItem: 0
     canBeDropped: 1
